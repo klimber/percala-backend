@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import percala.exception.ProfissionalExistenteException;
 import percala.model.Profissional;
 import percala.repository.ProfissionalRepository;
 
@@ -23,9 +24,11 @@ public class ProfissionalEndpoint {
 
 	@ApiOperation("Adiciona um Profissional")
 	@PostMapping("/profissional")
-	public Profissional insereProfissional(@RequestBody @Valid Profissional profissional) {
-
+	public Profissional insereProfissional(@RequestBody @Valid Profissional profissional) {	
 		profissional.setCpf(profissional.getCpf().replace("[^0-9]", ""));
+		if(profissionalRepository.existsByCpf(profissional.getCpf())) {
+			throw new ProfissionalExistenteException("CPF já cadastrado");
+		}
 		return profissionalRepository.save(profissional);
 
 	}
