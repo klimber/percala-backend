@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,14 @@ public class TurnoEndpoint {
 
 		return turnoRepository.save(turno);
 
+	}
+	
+	@GetMapping("/turno/{id}")
+	@ApiOperation("Busca um turno pelo ID")
+	public Turno mostraTurno(@PathVariable("id") Long id) {
+		
+		return turnoRepository.getOne(id);
+		
 	}
 	
 	@GetMapping("/turno")
