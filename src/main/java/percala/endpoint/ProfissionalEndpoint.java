@@ -25,6 +25,7 @@ public class ProfissionalEndpoint {
 	@PostMapping("/profissional")
 	public Profissional insereProfissional(@RequestBody @Valid Profissional profissional) {
 
+		profissional.setCpf(profissional.getCpf().replace("[^0-9]", ""));
 		return profissionalRepository.save(profissional);
 
 	}
