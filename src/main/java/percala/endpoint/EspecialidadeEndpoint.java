@@ -2,10 +2,12 @@ package percala.endpoint;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
@@ -20,9 +22,9 @@ public class EspecialidadeEndpoint {
 
 	@ApiOperation("Adiciona uma especialidade")
 	@PostMapping("/especialidade")
-	public Especialidade insereEspecialidade(@RequestParam("especialidade") String especialidade) {
+	public Especialidade insereEspecialidade(@RequestBody @Valid Especialidade especialidade) {
 
-		return especialidadeRepository.save(new Especialidade(especialidade));
+		return especialidadeRepository.save(especialidade);
 
 	}
 

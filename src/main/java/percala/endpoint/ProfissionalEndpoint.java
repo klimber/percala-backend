@@ -2,11 +2,13 @@ package percala.endpoint;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
@@ -21,17 +23,17 @@ public class ProfissionalEndpoint {
 
 	@ApiOperation("Adiciona um Profissional")
 	@PostMapping("/profissional")
-	public Profissional insereProfissional(@RequestParam("nome") String nome, @RequestParam("cpf") String cpf) {
+	public Profissional insereProfissional(@RequestBody @Valid Profissional profissional) {
 
-		return profissionalRepository.save(new Profissional(nome, cpf));
+		return profissionalRepository.save(profissional);
 
 	}
-
 	@ApiOperation("Busca Profissional através do id")
 	@GetMapping("/profissional/{id}")
 	public Profissional mostraProfissional(@PathVariable("id") Long id) {
 
 		return profissionalRepository.getOne(id);
+		
 	}
 
 	@ApiOperation("Busca todos os profissionais")
